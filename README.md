@@ -1,9 +1,8 @@
 # STTweetLabel
-[![Travis Build](https://api.travis-ci.org/SebastienThiebaud/STTweetLabel.png?branch=master "Travis Build")](http://travis-ci.org/SebastienThiebaud/STTweetLabel)
 
 A custom UILabel for iOS with certain words tappable like Twitter (#Hashtag, @Handle and links).
 
-![STTweetLabel screenshot](https://raw.github.com/SebastienThiebaud/STTweetLabel/master/screenshot.png "STTweetLabel Screenshot")
+![STTweetLabel screenshot](https://raw.github.com/alexruperez/STTweetLabel/master/screenshot.png "STTweetLabel Screenshot")
 
 ## Installation
 
@@ -59,12 +58,15 @@ Optionally, you can store the hot word and its range for autocomplete or statist
 
 Inspired by the original Twitter application.
 
+Ready to work with [alexruperez/ARAutocompleteTextView](https://github.com/alexruperez/ARAutocompleteTextView).
+
 ## Contact
 
-Sebastien Thiebaud
+Alejandro Rupérez
 
-- http://github.com/SebastienThiebaud
-- http://twitter.com/SebThiebaud
+- http://alexruperez.com
+- http://github.com/alexruperez
+- http://twitter.com/alexruperez
 
 ## License
 
