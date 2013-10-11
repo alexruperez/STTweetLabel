@@ -2,7 +2,7 @@
 
 A custom UILabel view controller for iOS with certain words tappable like Twitter (#Hashtag, @People and http://www.link.com/page)
 
-![STTweetLabel screenshot](https://raw.github.com/SebastienThiebaud/STTweetLabel/master/screenshot.png "STTweetLabel Screenshot")
+![STTweetLabel screenshot](https://raw.github.com/alexruperez/STTweetLabel/master/screenshot.png "STTweetLabel Screenshot")
 
 ## Documentation
 
@@ -12,8 +12,6 @@ You need only 2 files:
 - `STTweetLabel.m`
 
 You can change the fonts and colors for the different words (#Hashtag/@People AND http://link.com) via the `STTweetLabel` attributes.
-
-The official documentation is available here: http://doc.sebastienthiebaud.us/Classes/STTweetLabel.html
 
 ## Demo
 
@@ -34,7 +32,7 @@ Don't forget to implement the `STLinkCallbackBlock`. Without implementing the ca
 Blocks are easy. All you need to do is add a few lines of code:
 
 ``` objective-c
-    STLinkCallbackBlock callbackBlock = ^(STLinkActionType actionType, NSString *link) {
+    STLinkCallbackBlock linkCallbackBlock = ^(STLinkActionType actionType, NSString *link) {
 	        
         NSString *displayString = NULL;
         
@@ -65,23 +63,31 @@ Blocks are easy. All you need to do is add a few lines of code:
 Once you have added those few lines of code (depending on what you want to do when the user taps on something), make sure to tell your instance of STTweetLabel to call this block:
 
 ``` objective-c
-    [_tweetLabel setCallbackBlock:callbackBlock];
+    [_tweetLabel setLinkCallbackBlock:linkCallbackBlock];
 ```
-    
+
+Optionally, you can store the hot word and its range for autocomplete or statistics. Don't forget to implement the storeBlock before setting the text.
+
+``` objective-c
+	STStoreCallbackBlock storeCallbackBlock = ^(STLinkActionType actionType, NSString *link) {
+	    // Do something
+	}];
+	[_tweetLabel setStoreCallbackBlock:storeCallbackBlock];
+```
+
 ## Credits
 
 Inspired by the original Twitter application.
 
-## Thanks to
- - @Twittom180 [http://github.com/TomGiana] for disturbing me while I'm focused in my code!
- - @max_k [http://github.com/maxkramer] for implementing NSBlocks! 
+Ready to work with [alexruperez/ARAutocompleteTextView](https://github.com/alexruperez/ARAutocompleteTextView).
 
 ## Contact
 
-Sebastien Thiebaud
+Alejandro Rupérez
 
-- http://github.com/SebastienThiebaud
-- http://twitter.com/SebThiebaud
+- http://alexruperez.com
+- http://github.com/alexruperez
+- http://twitter.com/alexruperez
 
 ## License
 

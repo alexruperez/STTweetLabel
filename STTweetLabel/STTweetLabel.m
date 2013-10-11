@@ -216,16 +216,19 @@
                     {
                         [_colorHashtag set];
                         lastPrefix = @"#";
+                        if (_storeCallbackBlock) _storeCallbackBlock(STLinkActionTypeHashtag, wordCharacters);
                     }
                     else if ([wordCharacters hasPrefix:@"@"])
                     {
                         [_colorHashtag set];
                         lastPrefix = @"@";
+                        if (_storeCallbackBlock) _storeCallbackBlock(STLinkActionTypeAccount, wordCharacters);
                     }
                     else if ([wordCharacters hasPrefix:@"http"])
                     {
                         [_colorLink set];
                         lastPrefix = @"http";
+                        if (_storeCallbackBlock) _storeCallbackBlock(STLinkActionTypeWebsite, wordCharacters);
                     }
                     
                     CGSize sizeWordCharacters = [wordCharacters sizeWithFont:self.font];
@@ -475,45 +478,15 @@
 
              if ([[touchWords objectAtIndex:idx] hasPrefix:@"@"])
              {
-                 //Twitter account clicked
-                 if ([_delegate respondsToSelector:@selector(twitterAccountClicked:)]) {
-                     [_delegate twitterAccountClicked:url];
-                 }
-                 
-                 if (_callbackBlock != NULL) {
-                     
-                     _callbackBlock(STLinkActionTypeAccount, url);
-                     
-                 }
-                 
+                 if (_linkCallbackBlock) _linkCallbackBlock(STLinkActionTypeAccount, url);
              }
              else if ([[touchWords objectAtIndex:idx] hasPrefix:@"#"])
-             {
-                 //Twitter hashtag clicked
-                 if ([_delegate respondsToSelector:@selector(twitterHashtagClicked:)]) {
-                     [_delegate twitterHashtagClicked:url];
-                 }
-                 
-                 if (_callbackBlock != NULL) {
-                     
-                     _callbackBlock(STLinkActionTypeHashtag, url);
-                     
-                 }
+             {                 
+                 if (_linkCallbackBlock) _linkCallbackBlock(STLinkActionTypeHashtag, url);
              }
              else if ([[touchWords objectAtIndex:idx] hasPrefix:@"http"])
              {
-                 
-                 //Twitter hashtag clicked
-                 if ([_delegate respondsToSelector:@selector(websiteClicked:)]) {
-                     [_delegate websiteClicked:url];
-                 }
-                 
-                 if (_callbackBlock != NULL) {
-                     
-                     _callbackBlock(STLinkActionTypeWebsite, url);
-                     
-                 }
-                 
+                 if (_linkCallbackBlock) _linkCallbackBlock(STLinkActionTypeWebsite, url);
              }
          }
          else

@@ -15,8 +15,7 @@ typedef enum {
 } STLinkActionType;
 
 typedef void(^STLinkCallbackBlock)(STLinkActionType actionType, NSString *link);
-
-
+typedef void(^STStoreCallbackBlock)(STLinkActionType actionType, NSString *link);
 
 /**
  The STLinkProtocol protocol is adopted by an object that receives the user interactions for a STTweetLabel.
@@ -186,10 +185,21 @@ typedef enum {
  
  You can declare a STLinkCallbackBlock with `void(^STLinkCallbackBlock)(STLinkActionType actionType, NSString *link);`:
  
-     STLinkCallbackBlock callbackBlock = ^(STLinkActionType actionType, NSString *link) {
+     STLinkCallbackBlock linkCallbackBlock = ^(STLinkActionType actionType, NSString *link) {
         // Do something...
      };
  */
-@property (nonatomic, copy) STLinkCallbackBlock callbackBlock;
+@property (nonatomic, copy) STLinkCallbackBlock linkCallbackBlock;
+
+/**
+ The block called when a hashtag, mention or link is detected
+ 
+ You can declare a STStoreCallbackBlock with `void(^STStoreCallbackBlock)(STLinkActionType actionType, NSString *link);`:
+ 
+     STStoreCallbackBlock storeCallbackBlock = ^(STLinkActionType actionType, NSString *link) {
+        // Do something...
+     };
+ */
+@property (nonatomic, copy) STStoreCallbackBlock storeCallbackBlock;
 
 @end

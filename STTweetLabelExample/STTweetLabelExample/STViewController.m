@@ -29,11 +29,41 @@
     // Do any additional setup after loading the view from its nib.
 
     _tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(20.0, 60.0, 280.0, 230.0)];
+    
+    STStoreCallbackBlock storeCallbackBlock = ^(STLinkActionType actionType, NSString *link)  {
+        NSString *userDefaultsKey;
+        switch (actionType)
+        {
+            case STLinkActionTypeAccount:
+                userDefaultsKey = @"UserDefaultsHandleKey";
+                break;
+            case STLinkActionTypeHashtag:
+                userDefaultsKey = @"UserDefaultsHashtagKey";
+                break;
+            case STLinkActionTypeWebsite:
+                userDefaultsKey = @"UserDefaultsLinkKey";
+                break;
+            default:
+                break;
+        }
+        NSData *userDefaultsData = [[NSUserDefaults standardUserDefaults] objectForKey:userDefaultsKey];
+        NSMutableSet *userDefaultsSet = userDefaultsData ? [NSKeyedUnarchiver unarchiveObjectWithData:userDefaultsData] : [[NSMutableSet alloc] init];
+        if (![userDefaultsSet containsObject:link])
+        {
+            [userDefaultsSet addObject:link];
+            userDefaultsData = [NSKeyedArchiver archivedDataWithRootObject:userDefaultsSet];
+            [[NSUserDefaults standardUserDefaults] setObject:userDefaultsData forKey:userDefaultsKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    };
+    
+    [_tweetLabel setStoreCallbackBlock:storeCallbackBlock];
+    
     [_tweetLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:17.0]];
     [_tweetLabel setTextColor:[UIColor blackColor]];
     [_tweetLabel setText:@"Hi. This is a new tool for @you! Developed by->@SebThiebaud for #iPhone #Obj-C... ;-)\nMy GitHub page: https://www.github.com/SebastienThiebaud!"];
 
-    STLinkCallbackBlock callbackBlock = ^(STLinkActionType actionType, NSString *link) {
+    STLinkCallbackBlock linkCallbackBlock = ^(STLinkActionType actionType, NSString *link) {
         
         NSString *displayString = NULL;
         
@@ -56,7 +86,7 @@
         
     };
     
-    [_tweetLabel setCallbackBlock:callbackBlock];
+    [_tweetLabel setLinkCallbackBlock:linkCallbackBlock];
     
     [self.view addSubview:_tweetLabel];
     
