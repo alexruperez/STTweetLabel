@@ -8,7 +8,9 @@ A custom UILabel for iOS with certain words tappable like Twitter (#Hashtag, @Ha
 
 Please use CocoaPods and include STTweetLabel in your Podfile.
 
-Important: STTweetLabel 3.0 is based on TextKit and is not compatible under iOS 7.
+Important: STTweetLabel 3.0 is based on TextKit and is not compatible under iOS7.
+
+If you want to use it with iOS6 use the latest version of the branch [iOS6](https://github.com/alexruperez/STTweetLabel/tree/iOS6).
 
 ## Demo
 
